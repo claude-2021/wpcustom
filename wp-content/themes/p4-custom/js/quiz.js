@@ -1,8 +1,4 @@
-
-
 jQuery(document).ready(function($) {
-
-
 
     $.getJSON('http://time.jsontest.com', function(data) {
 
@@ -14,6 +10,7 @@ jQuery(document).ready(function($) {
         $(".mypanel").html(text);
     });
 
+    var selected = [];
 
 
     var step = 0 ;
@@ -44,16 +41,29 @@ jQuery(document).ready(function($) {
 
     $(".next-btn-quiz").click(function(){
         if( step < (totalSteps-1) ){
-            step+=1;            
+            step+=1;
             $(".panel").addClass('hidden');
             $(".panel:eq("+step+")").removeClass('hidden');
+            console.log(calculatePoints());
         }
-        console.log(step,'stepNext',totalSteps,'totalSteps')        
     });
 
 
-function validated( answers , step ){
-    return true
+$(".thebtn").click(function(){
+    var stepClicked = $(this).closest('.panel').attr('step');
+    $(this).toggleClass('selected');
+    var points = $(this).attr('points');
+})
+
+function calculatePoints(){
+    var cnt = 0;
+    $('.thebtn').each(function(i, obj) {
+        if($(obj).hasClass('selected')) {
+            var points = parseInt($(obj).attr('points'));
+            cnt += points;
+        }
+    });
+    return cnt;
 }
 
 });

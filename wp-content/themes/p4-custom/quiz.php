@@ -17,13 +17,13 @@ $json = json_decode($string, true);
     <div class="btn-quiz btn-quiz-green pointer btn-startquiz">Start Quiz</div>
 </div>
 <div class="panelsWrapper">
-    <?php foreach($json as $item){?>
-        <div class="panel hidden">
+    <?php $i=0; foreach($json as $item){ $i++;?>
+        <div class="panel hidden" step="<?php echo $i;?>">
             <div class="question"><?php echo $item['post_title']?></div>
             <div>Select at least one that applies to you to continue</div>
             <ul class="options">
                 <?php foreach($item['answers'] as $answer){?>
-                    <li points="<?php echo $answer['point']?>"><?php echo $answer['answer']?></li>
+                    <li class="thebtn" points="<?php echo $answer['point']?>"><?php echo $answer['answer']?></li>
                     <?php }?>
                 </ul>
             </div>
