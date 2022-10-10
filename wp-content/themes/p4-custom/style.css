@@ -1,0 +1,39 @@
+/* QUIZzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz   */
+.flex-center-column{display: flex;flex-direction: column;align-items: center;}
+.pointer{cursor: pointer;}
+
+.btn-quiz{
+	width: 222px;
+	border-radius: 4px;
+	padding: 12px 0;
+	color:#ffffff;
+	text-align: center;
+	font-size: 18px;
+	font-weight: 600;
+	border:2px solid #66CC00;
+}
+.btn-quiz-green{
+	background: #66CC00;
+}
+.btn-quiz-green.disabled{
+	border:2px solid #a6b19b;
+	background: #a6b19b;
+}
+.btn-quiz-white{
+	background: #ffffff;
+	color: #000000;
+}
+
+
+.hidden{
+	display:none;
+	visibility: hidden;
+}
+.visible{
+	display:block;
+	visibility: visible;
+}
+
+.navig{margin-top: 25px;}
+.flex-raw-center{display: flex;justify-content: center;}
+.flex-raw-center div{margin: 0 15px;}
