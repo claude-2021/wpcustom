@@ -182,23 +182,37 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 add_action('wp_enqueue_scripts','Load_Template_Scripts_wpa83855');
 function Load_Template_Scripts_wpa83855(){
     if ( is_page_template('quiz.php') ) {
+		wp_enqueue_style( 'style-name', get_template_directory_uri().'/style.css?v='.time() );
         wp_enqueue_script('my-script', get_template_directory_uri().'/js/quiz.js?v='.time() , array('jquery'));
     } 
 }
 
 
 add_action('rest_api_init', function () {
-	register_rest_route( 'v1', 'quiz-posts/',array(
-				  'methods'  => 'GET',
-				  'callback' => 'get_all_quiz'
+	register_rest_route( 'v1', '/quiz-posts/(?P<lang>[^/]+)',array(
+				  'methods' => 'GET',
+				  'callback' => 'get_all_quiz',
+				  'args' => [
+					'lang'
+				],
 				));
   });
 
-  function get_all_quiz() {
-    $args = array(
+  function get_all_quiz($request) {
+	wp_get_nocache_headers();
+	$lang = $request->get_param( 'lang' );
+
+	$args = array(
 			'post_type' => 'quiz',
-			'lang' => 'en'
+			'lang' => $lang,
+			'order_by'=>'ID',
+			'order'=>'ASC',
+			'posts_per_page'=> -1
+
     );
+
+
+
     $posts = get_posts($args);
 
     if (empty($posts)) {
@@ -209,21 +223,24 @@ add_action('rest_api_init', function () {
 		$my_posts[]['post_title']=$post->post_title;
 		$answersIDS = get_post_meta($post->ID , 'answers' , true);
 		
-		foreach($answersIDS as $id){
-			$answer = get_post($id);
-			$points = get_post_meta($id , 'points' , true);
+		if( sizeof($answersIDS) >= 1 ){
+			foreach($answersIDS as $id){
+				$answer = get_post($id);
+				$points = get_post_meta($id , 'points' , true);
+				
+				$my_posts[$k]['answers'][] = array(
+					"answer" => $answer->post_title,
+					"point" => $points,
+					"POSTID" => $post->ID
+				);	
+			}
 			
-			$my_posts[$k]['answers'][] = 
-			array(
-				"answer" => $answer->post_title,
-				"point" => $points
-			);	
-
 		}
+
 	}
 
-    $response = new WP_REST_Response($my_posts);
-    $response->set_status(200);
+    $response = new WP_REST_Response($my_posts , 200);
+	$response->set_headers(array('Cache-Control' => 'no-cache'));
 
     return $response;
 }

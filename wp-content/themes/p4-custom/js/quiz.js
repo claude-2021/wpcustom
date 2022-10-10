@@ -17,7 +17,7 @@ jQuery(document).ready(function($) {
 
 
     var step = 0 ;
-
+    var totalSteps = $(".panelsWrapper").children().length;
 
 
     $(".btn-startquiz").click(function(){
@@ -36,14 +36,19 @@ jQuery(document).ready(function($) {
         }
         else{
             step-=1;
+            $(".panel").addClass('hidden');
+            $(".panel:eq("+step+")").removeClass('hidden');
         }
 
     });
+
     $(".next-btn-quiz").click(function(){
-        if(validated){
-            step+=1;
+        if( step < (totalSteps-1) ){
+            step+=1;            
+            $(".panel").addClass('hidden');
             $(".panel:eq("+step+")").removeClass('hidden');
         }
+        console.log(step,'stepNext',totalSteps,'totalSteps')        
     });
 
 
