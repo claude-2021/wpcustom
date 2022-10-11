@@ -220,18 +220,28 @@ add_action('rest_api_init', function () {
     }
 
 	foreach($posts as $k=>$post){
-		$my_posts[]['post_title']=$post->post_title;
+		
+		//$my_posts[]['post_title']=$post->post_title;
+		$my_posts[]=array(
+			'post_title' => $post->post_title,
+			'slug' => $post->post_name,
+			'has_long_title' => get_post_meta($post->ID , 'has_long_title' , true),
+		);
+
+		//$my_posts[]['slug']=$post->slug;
 		$answersIDS = get_post_meta($post->ID , 'answers' , true);
 		
 		if( sizeof($answersIDS) >= 1 ){
 			foreach($answersIDS as $id){
 				$answer = get_post($id);
 				$points = get_post_meta($id , 'points' , true);
+				$behavior = get_post_meta($id , 'behavior' , true);
 				
 				$my_posts[$k]['answers'][] = array(
 					"answer" => $answer->post_title,
 					"point" => $points,
-					"POSTID" => $post->ID
+					"behavior" => $behavior,
+					"POSTID" => $post->ID,
 				);	
 			}
 			
@@ -244,3 +254,10 @@ add_action('rest_api_init', function () {
 
     return $response;
 }
+
+add_action('init', function() {
+	pll_register_string('p4custom-start-quiz', 'Start Quiz');
+	pll_register_string('p4custom-select_at_least_one_that_applies_to_you_to_continue', 'Select at least one that applies to you to continue');
+	pll_register_string('p4custom-next', 'Next');
+	pll_register_string('p4custom-back', 'Back');
+  });
