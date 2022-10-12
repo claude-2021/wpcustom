@@ -75,6 +75,14 @@ $json = json_decode($string, true);
 
 <div class="result_main hidden">
  
+<div class="result flex">
+    <div>
+        <div class="big-tit">Your Result</div>
+        <div class="quote">You don’t just live by principles</div>
+        <div class="percentage-phrase"><span class="rec">61%</span> of people get this result</div>
+    </div>
+</div>
+
 
 
 
