@@ -59,8 +59,8 @@ jQuery(document).ready(function($) {
             } 
             
 
-            console.log(calculatePoints());
         }
+        calculatePoints();
     });
 
 
@@ -95,7 +95,12 @@ function calculatePoints(){
             cnt += points;
         }
     });
-    return cnt;
+
+    var perc = (cnt * 100) / 127 ;
+
+
+    console.log('perc' , perc.toFixed(0)+"%" , "cnt:" , cnt  )
+    return cnt  ;
 }
 
 });

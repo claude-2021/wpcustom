@@ -5,11 +5,16 @@ Template Name: Quiz Page
 https://www.figma.com/file/waDWQvMBf42Q3yvxl8N223/Greenpeace?node-id=399%3A2206
 */
 wp_head();
+$ln = get_locale();
 //$quiz = get_all_quiz();
 //print_r($quiz->data);
-$string = file_get_contents( get_template_directory_uri()."/quiz.json" );
+$string = file_get_contents( get_template_directory_uri()."/quiz".($ln=='ar' ? '_ar' :'').".json" );
 $json = json_decode($string, true);
 ?>
+
+<div class="quiz_main">
+
+
 
 <div class="panel-start-quiz flex-center-column">
     <div class="quiz_image">
@@ -39,7 +44,7 @@ $json = json_decode($string, true);
                <label class="thebtn" points="<?php echo $answer['point']?>">
                <div class="thebtnInner">
 
-                   <?php if( strlen($item['has_long_title']) > 4 ){?>
+                   <?php if( strlen($item['has_long_title']) > 7 ){?>
                     <img class="not-selected" src="<?php echo get_template_directory_uri( )?>/img/checkbox-not-selected.png" />
                     <img class="selected hidden" src="<?php echo get_template_directory_uri( )?>/img/checkbox-selected.png" />
                     <?php }?>
@@ -63,4 +68,14 @@ $json = json_decode($string, true);
             src="<?php echo get_template_directory_uri( )?>/img/arrow-left.png" /></div>
     <div class="btn-quiz next-btn-quiz btn-quiz-green pointer disabled"><span><?php pll_e('Next'); ?></span><img
             src="<?php echo get_template_directory_uri( )?>/img/arrow-right.png" /></div>
+</div>
+
+</div>
+
+
+<div class="result_main hidden">
+ 
+
+
+
 </div>

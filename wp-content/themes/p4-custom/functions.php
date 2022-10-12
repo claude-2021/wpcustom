@@ -231,7 +231,7 @@ add_action('rest_api_init', function () {
 		//$my_posts[]['slug']=$post->slug;
 		$answersIDS = get_post_meta($post->ID , 'answers' , true);
 		
-		if( sizeof($answersIDS) >= 1 ){
+		if( is_array($answersIDS) && sizeof($answersIDS) >= 1 ){
 			foreach($answersIDS as $id){
 				$answer = get_post($id);
 				$points = get_post_meta($id , 'points' , true);
