@@ -159,12 +159,18 @@ add_action('rest_api_init', function () {
 function add_google_fonts() {
     wp_enqueue_style( ' add_google_fonts ', 'https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,400;0,600;0,700;1,500&display=swap', false );
 }
-    add_action( 'wp_enqueue_scripts', 'add_google_fonts' );
-add_action('init', function() {
-	pll_register_string('p4custom-start-quiz', 'Start Quiz');
-	pll_register_string('p4custom-select_at_least_one_that_applies_to_you_to_continue', 'Select at least one that applies to you to continue');
-	pll_register_string('p4custom-next', 'Next');
-	pll_register_string('p4custom-back', 'Back');
-	pll_register_string('p4custom-share', 'Share');
-	pll_register_string('p4custom-donate', 'Donate Now');
-  });
+
+add_action( 'wp_enqueue_scripts', 'add_google_fonts' );
+
+if(function_exists('pll_register_string')){
+
+    add_action('init', function() {
+        pll_register_string('p4custom-start-quiz', 'Start Quiz');
+        pll_register_string('p4custom-select_at_least_one_that_applies_to_you_to_continue', 'Select at least one that applies to you to continue');
+        pll_register_string('p4custom-next', 'Next');
+        pll_register_string('p4custom-back', 'Back');
+        pll_register_string('p4custom-share', 'Share');
+        pll_register_string('p4custom-donate', 'Donate Now');
+    });
+    
+}
