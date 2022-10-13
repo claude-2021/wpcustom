@@ -2,7 +2,6 @@
 /**
 Plugin Name: My CPT plugin
 **/
-
 //// Create recipes CPT
 function quiz_post_type() {
     register_post_type( 'quiz',
@@ -40,7 +39,6 @@ function quiz_post_type() {
     );
 }
 add_action( 'init', 'quiz_post_type' );
-
 //// Add  taxonomy
 function create_recipes_taxonomy() {
     register_taxonomy('cuisines','recipes',array(
@@ -77,8 +75,6 @@ function create_recipes_taxonomy() {
     ));
 }
 //add_action( 'init', 'create_recipes_taxonomy', 0 );
-
-
 function my_template_array(){
     $temps=[];
     $temps['quiz-page.php']= '_Quiz Page';
@@ -90,12 +86,8 @@ function my_templpate_register($page_templates,$theme,$post){
         $page_templates[$tk]=$tv;
     }
     return $page_templates;
-
 }
-
 add_filter('theme_page_templates','my_templpate_register',10,3);
-
-
 function my_template_select($template){
     global $post , $wp_query , $wpdb;
     $page_temp_slug = get_page_template_slug($post->ID);
@@ -103,15 +95,9 @@ function my_template_select($template){
     if(isset($templates[$page_temp_slug])){
         $template = plugin_dir_path(__FILE__).'/templates/'.$page_temp_slug;
     }
-
     return $template;
-
 }
 add_filter('template_include' , 'my_template_select',99);
-
-
-
-
 /* PART 2 */
 add_action('wp_enqueue_scripts','Load_Template_Scripts_wpa83855');
 function Load_Template_Scripts_wpa83855(){
@@ -120,8 +106,6 @@ function Load_Template_Scripts_wpa83855(){
         wp_enqueue_script('my-script', plugin_dir_url(__FILE__ ).'js/quiz.js?v='.time() , array('jquery'));
     } 
 }
-
-
 add_action('rest_api_init', function () {
 	register_rest_route( 'v1', '/quiz-posts/(?P<lang>[^/]+)',array(
 				  'methods' => 'GET',
@@ -131,46 +115,34 @@ add_action('rest_api_init', function () {
 				],
 				));
   });
-
   function get_all_quiz($request) {
 	wp_get_nocache_headers();
 	$lang = $request->get_param( 'lang' );
-
 	$args = array(
 			'post_type' => 'quiz',
 			'lang' => $lang,
 			'order_by'=>'ID',
 			'order'=>'ASC',
 			'posts_per_page'=> -1
-
     );
-
-
-
     $posts = get_posts($args);
-
     if (empty($posts)) {
     	return new WP_Error( 'empty_category', 'There are no posts to display', array('status' => 404) );
     }
-
 	foreach($posts as $k=>$post){
-		
 		//$my_posts[]['post_title']=$post->post_title;
 		$my_posts[]=array(
 			'post_title' => $post->post_title,
 			'slug' => $post->post_name,
 			'has_long_title' => get_post_meta($post->ID , 'has_long_title' , true),
 		);
-
 		//$my_posts[]['slug']=$post->slug;
 		$answersIDS = get_post_meta($post->ID , 'answers' , true);
-		
 		if( is_array($answersIDS) && sizeof($answersIDS) >= 1 ){
 			foreach($answersIDS as $id){
 				$answer = get_post($id);
 				$points = get_post_meta($id , 'points' , true);
 				$behavior = get_post_meta($id , 'behavior' , true);
-				
 				$my_posts[$k]['answers'][] = array(
 					"answer" => $answer->post_title,
 					"point" => $points,
@@ -178,21 +150,21 @@ add_action('rest_api_init', function () {
 					"POSTID" => $post->ID,
 				);	
 			}
-			
 		}
-
 	}
-
     $response = new WP_REST_Response($my_posts , 200);
 	$response->set_headers(array('Cache-Control' => 'no-cache'));
-
     return $response;
 }
-
+function add_google_fonts() {
+    wp_enqueue_style( ' add_google_fonts ', 'https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,400;0,600;0,700;1,500&display=swap', false );
+}
+    add_action( 'wp_enqueue_scripts', 'add_google_fonts' );
 add_action('init', function() {
 	pll_register_string('p4custom-start-quiz', 'Start Quiz');
 	pll_register_string('p4custom-select_at_least_one_that_applies_to_you_to_continue', 'Select at least one that applies to you to continue');
 	pll_register_string('p4custom-next', 'Next');
 	pll_register_string('p4custom-back', 'Back');
-	pll_register_string('p4custom-back', 'Share');
+	pll_register_string('p4custom-share', 'Share');
+	pll_register_string('p4custom-donate', 'Donate Now');
   });
