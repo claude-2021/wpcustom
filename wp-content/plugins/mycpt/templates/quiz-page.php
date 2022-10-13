@@ -8,22 +8,25 @@ wp_head();
 $ln = get_locale();
 //$quiz = get_all_quiz();
 //print_r($quiz->data);
-$string = file_get_contents( get_template_directory_uri()."/quiz".($ln=='ar' ? '_ar' :'').".json" );
+
+define( 'PLUGIN_DIR', dirname(__DIR__).'/' );  
+
+$string = file_get_contents( PLUGIN_DIR."/json/quiz".($ln=='ar' ? '_ar' :'').".json" );
 $json = json_decode($string, true);
 ?>
 
-<div class="quiz_main">
+<div class="quiz_main hidden">
 
 
 
 <div class="panel-start-quiz flex-center-column">
     <div class="quiz_image">
-        <img src="<?php echo get_template_directory_uri( )?>/img/find-action-for-you.png" />
+        <img src="<?php echo plugin_dir_url(__DIR__)?>/img/find-action-for-you.png" />
     </div>
     <div class="quiz_title"><?php echo $post->post_title;?></div>
     <div class="quiz_content"><?php echo $post->post_content;?></div>
     <div class="btn-quiz btn-quiz-green pointer btn-startquiz"><span><?php pll_e('Start Quiz'); ?></span><img
-            src="<?php echo get_template_directory_uri( )?>/img/arrow-right.png" /></div>
+            src="<?php echo plugin_dir_url(__DIR__)?>/img/arrow-right.png" /></div>
 </div>
 
 <div class="panelsWrapperOuter hidden">
@@ -45,8 +48,8 @@ $json = json_decode($string, true);
                <div class="thebtnInner">
 
                    <?php if( strlen($item['has_long_title']) > 7 ){?>
-                    <img class="not-selected" src="<?php echo get_template_directory_uri( )?>/img/checkbox-not-selected.png" />
-                    <img class="selected hidden" src="<?php echo get_template_directory_uri( )?>/img/checkbox-selected.png" />
+                    <img class="not-selected" src="<?php echo plugin_dir_url(__DIR__)?>/img/checkbox-not-selected.png" />
+                    <img class="selected hidden" src="<?php echo plugin_dir_url(__DIR__)?>/img/checkbox-selected.png" />
                     <?php }?>
                     
                     <input name="<?php echo str_replace("-" , "_" , $item['slug']);?>" type="checkbox" class="hidecheck" value="<?php echo $answer['answer']?>">
@@ -65,21 +68,31 @@ $json = json_decode($string, true);
 
 <div class="navig flex-raw-center hidden">
     <div class="btn-quiz prev-btn-quiz btn-quiz-white pointer"><span><?php pll_e('Back'); ?></span><img
-            src="<?php echo get_template_directory_uri( )?>/img/arrow-left.png" /></div>
+            src="<?php echo plugin_dir_url(__DIR__)?>img/arrow-left.png" /></div>
     <div class="btn-quiz next-btn-quiz btn-quiz-green pointer disabled"><span><?php pll_e('Next'); ?></span><img
-            src="<?php echo get_template_directory_uri( )?>/img/arrow-right.png" /></div>
+            src="<?php echo plugin_dir_url(__DIR__)?>img/arrow-right.png" /></div>
 </div>
 
 </div>
 
 
-<div class="result_main hidden">
+<div class="result_main ">
  
 <div class="result flex">
     <div>
         <div class="big-tit">Your Result</div>
         <div class="quote">You don’t just live by principles</div>
-        <div class="percentage-phrase"><span class="rec">61%</span> of people get this result</div>
+        <div class="percentage-phrase"><span class="perc">61%</span> of people get this result</div>
+        <div class="share-btn flex">
+            <div class="inner flex">
+                <img src="<?php echo plugin_dir_url(__DIR__)?>img/share.png" />
+                <span><?php pll_e('Share'); ?></span>
+            </div>
+    </div>    
+    </div>
+
+    <div>
+        <img src="<?php echo plugin_dir_url(__DIR__)?>img/Above-60-per.png" />
     </div>
 </div>
 

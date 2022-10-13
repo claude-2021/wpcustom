@@ -1,20 +1,20 @@
 jQuery(document).ready(function($) {
 
-    // $.getJSON('http://time.jsontest.com', function(data) {
+    $.getJSON('http://time.jsontest.com', function(data) {
 
-    //     var text = `Date: ${data.date}<br>
-    //                 Time: ${data.time}<br>
-    //                 Unix time: ${data.milliseconds_since_epoch}`
+        var text = `Date: ${data.date}<br>
+                    Time: ${data.time}<br>
+                    Unix time: ${data.milliseconds_since_epoch}`
 
 
-    //     $(".mypanel").html(text);
-    // });
+        $(".mypanel").html(text);
+    });
 
     var selected = [];
 
 
     var step = 0 ;
-    var totalSteps = $(".panelsWrapper").children().length;
+    var totalSteps = $(".panelsWrapper").children('.panel').length;
 
 
     $(".btn-startquiz").click(function(){
@@ -57,9 +57,14 @@ jQuery(document).ready(function($) {
             }else{        
                 $(".next-btn-quiz").removeClass('disabled');
             } 
-            
-
         }
+
+        if(step==(totalSteps-1)) {
+            $(".quiz_main").addClass("hidden");
+            $(".result_main").removeClass("hidden");
+            $(".perc").html(calculatePoints());
+        }
+
         calculatePoints();
     });
 
@@ -100,7 +105,7 @@ function calculatePoints(){
 
 
     console.log('perc' , perc.toFixed(0)+"%" , "cnt:" , cnt  )
-    return cnt  ;
+    return perc.toFixed(0)+"%"  ;
 }
 
 });
