@@ -12,7 +12,7 @@ $string = file_get_contents( PLUGIN_DIR."/json/quiz".($ln=='ar' ? '_ar' :'').".j
 $json = json_decode($string, true);
 ?>
 <div class="QUIZ-proj-wrapper">
-<div class="quiz_main hidden">
+<div class="quiz_main">
 <div class="panel-start-quiz flex-center-column">
     <div class="quiz_image">
         <img src="<?php echo plugin_dir_url(__DIR__)?>/img/find-action-for-you.png" />
@@ -57,7 +57,7 @@ $json = json_decode($string, true);
             src="<?php echo plugin_dir_url(__DIR__)?>img/arrow-right.png" /></div>
 </div>
 </div>
-<div class="result_main ">
+<div class="result_main hidden">
 <div class="result_inner flex">
     <div class="txtc">
         <div class="big-tit">Your Result</div>

@@ -59,13 +59,28 @@ jQuery(document).ready(function($) {
             } 
         }
 
+        var perc = calculatePoints();
+        console.log(perc,'perc');
+        var perc_txt = "";
+        if( perc < 30 ) {
+            perc_txt="Below 30%"
+        }
+        if( perc > 60 ) {
+            perc_txt="Above 60%"
+        }
+        if( perc >= 30 && perc <= 60 ) {
+            perc_txt="30-60%"
+        }
+
         if(step==(totalSteps-1)) {
             $(".quiz_main").addClass("hidden");
             $(".result_main").removeClass("hidden");
-            $(".perc").html(calculatePoints());
+            $(".perc").html(perc+"%");
+            $(".per_text").html(perc_txt);
         }
 
-        calculatePoints();
+
+
     });
 
 
@@ -102,10 +117,11 @@ function calculatePoints(){
     });
 
     var perc = (cnt * 100) / 127 ;
+    
 
 
-    console.log('perc' , perc.toFixed(0)+"%" , "cnt:" , cnt  )
-    return perc.toFixed(0)+"%"  ;
+    //console.log('perc' , perc.toFixed(0)+"%" , "cnt:" , cnt  )
+    return perc.toFixed(0)  ;
 }
 
 });
