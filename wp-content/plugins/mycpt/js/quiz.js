@@ -78,60 +78,85 @@ jQuery(document).ready(function ($) {
       $(clicked).find("img.not-selected").removeClass("hidden");
     }
   }
+
   $(".thebtn").click(function (e) {
     e.preventDefault();
     $optionsParent = $(this).closest(".options");
+
     if (
       !$(this).hasClass("behavior-none") &&
       !$(this).hasClass("behavior-all")
     ) {
-      $(this).toggleClass("selected");
+      //$optionsParent.find(".thebtn").removeClass("selected");
+      if (!$(this).hasClass("selected")) {
+        $(this).addClass("selected");
+        $(this).find("img.selected").removeClass("hidden");
+        $(this).find("img.not-selected").addClass("hidden");
+      } else {
+        $(this).removeClass("selected");
+        $(this).find("img.selected").addClass("hidden");
+        $(this).find("img.not-selected").removeClass("hidden");
+      }
+
       $optionsParent.find(".thebtn.behavior-none").removeClass("selected");
-      toggleImage($(this))
+      $optionsParent.find(".thebtn.behavior-all").removeClass("selected");
+
+      $optionsParent
+        .find(".thebtn.behavior-none img.selected")
+        .addClass("hidden");
+      $optionsParent
+        .find(".thebtn.behavior-none img.not-selected")
+        .removeClass("hidden");
+
+      $optionsParent
+        .find(".thebtn.behavior-all img.selected")
+        .addClass("hidden");
+      $optionsParent
+        .find(".thebtn.behavior-all img.not-selected")
+        .removeClass("hidden");
+    }
+
+    if ($(this).hasClass("behavior-none")) {
+      //  $(this).toggleClass("selected");
+
+      $optionsParent.find(".thebtn").each(function (i, obj) {
+        if (!$(obj).hasClass("behavior-none")) {
+          $(obj).removeClass("selected");
+          $(obj).find("img.selected").addClass("hidden");
+          $(obj).find("img.not-selected").removeClass("hidden");
+        }
+      });
+
+      if (!$(this).hasClass("selected")) {
+        $(this).addClass("selected");
+        $(this).find("img.selected").removeClass("hidden");
+        $(this).find("img.not-selected").addClass("hidden");
+      } else {
+        if (!$(this).hasClass("allSelected")) {
+          $(this).removeClass("selected");
+          $(this).find("img.selected").addClass("hidden");
+          $(this).find("img.not-selected").removeClass("hidden");
+        }
+      }
+    }
+
+    if ($(this).hasClass("behavior-all")) {
+      //$(this).toggleClass("selected");
+      $optionsParent.find(".thebtn.behavior-none").addClass("allSelected");
+      
+      $optionsParent.find(".thebtn").each(function (i, obj) {
+        $(obj).addClass("selected");
+        $(obj).find("img.selected").removeClass("hidden");
+        $(obj).find("img.not-selected").addClass("hidden");
+      });
+      
+      $optionsParent.find(".thebtn.behavior-none").removeClass("selected");
       $optionsParent.find(".thebtn.behavior-none img.selected").addClass("hidden");
       $optionsParent.find(".thebtn.behavior-none img.not-selected").removeClass("hidden");
 
-    }
-    if ($(this).hasClass("behavior-none")) {
-      $(this).toggleClass("selected");
-      $optionsParent.find(".thebtn").each(function (i, obj) {
-        if (!$(obj).hasClass("behavior-none")) {
-          $(obj).removeClass("selected");
-          $(obj).find("img.selected").addClass("hidden");
-          $(obj).find("img.not-selected").removeClass("hidden");
-        }
-      });
 
-      if ($(this).hasClass("selected")) {
-        $(this).find("img.selected").removeClass("hidden");
-        $(this).find("img.not-selected").addClass("hidden");
-      } else {
-        $(this).find("img.selected").addClass("hidden");
-        $(this).find("img.not-selected").removeClass("hidden");
-      }
     }
 
-
-
-    if ($(this).hasClass("behavior-all")) {
-      $(this).toggleClass("selected");
-      $optionsParent.find(".thebtn").each(function (i, obj) {
-        if (!$(obj).hasClass("behavior-none")) {
-          $(obj).removeClass("selected");
-          $(obj).find("img.selected").addClass("hidden");
-          $(obj).find("img.not-selected").removeClass("hidden");
-        }
-      });
-
-      if ($(this).hasClass("selected")) {
-        $(this).find("img.selected").removeClass("hidden");
-        $(this).find("img.not-selected").addClass("hidden");
-      } else {
-        $(this).find("img.selected").addClass("hidden");
-        $(this).find("img.not-selected").removeClass("hidden");
-      }
-    }
-    
     if ($(this).closest(".options").find(".thebtn.selected").length == 0) {
       $(".next-btn-quiz").addClass("disabled");
     } else {

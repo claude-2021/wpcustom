@@ -2,6 +2,7 @@
 /*
 Template Name: Quiz Page
 https://www.figma.com/file/waDWQvMBf42Q3yvxl8N223/Greenpeace?node-id=399%3A2206
+//     )Ky#H8U07pxt7G*N6x
 */
 wp_head();
 $ln = get_locale();
