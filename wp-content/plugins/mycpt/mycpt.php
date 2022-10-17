@@ -157,7 +157,9 @@ add_action('rest_api_init', function () {
     return $response;
 }
 function add_google_fonts() {
-    wp_enqueue_style( ' add_google_fonts ', 'https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,400;0,600;0,700;1,500&display=swap', false );
+    wp_enqueue_style( ' add_google_fonts ', 'https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;800;900&display=swap', false );
+    
+
 }
 
 add_action( 'wp_enqueue_scripts', 'add_google_fonts' );

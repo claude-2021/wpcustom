@@ -1,127 +1,153 @@
-jQuery(document).ready(function($) {
-
-    $.getJSON('http://time.jsontest.com', function(data) {
-
-        var text = `Date: ${data.date}<br>
+jQuery(document).ready(function ($) {
+  $.getJSON("http://time.jsontest.com", function (data) {
+    var text = `Date: ${data.date}<br>
                     Time: ${data.time}<br>
-                    Unix time: ${data.milliseconds_since_epoch}`
-
-
-        $(".mypanel").html(text);
-    });
-
-    var selected = [];
-
-
-    var step = 0 ;
-    var totalSteps = $(".panelsWrapper").children('.panel').length;
-
-
-    $(".btn-startquiz").click(function(){
-        $('.panel-start-quiz').addClass("hidden");
-        $(".navig").removeClass("hidden");
-        $(".panelsWrapperOuter").removeClass("hidden");
-        $(".panel:eq(0)").removeClass('hidden');
-    });
-    
-    $(".prev-btn-quiz").click(function(){
-        if(step==0){
-            $('.panel-start-quiz').removeClass("hidden")
-            $(".navig").addClass("hidden")
-            $(".panelsWrapperOuter").addClass("hidden");
-            $(".panel:eq(0)").addClass('hidden');
-
-        }
-        else{
-            step-=1;
-            $(".panel").addClass('hidden');
-            $(".panel:eq("+step+")").removeClass('hidden');
-            $(".stepNumber").html(step+1);
-            $(".progressBarInner").css('width', ((step+1)*10) + '%' );
-            $(".next-btn-quiz").removeClass('disabled');
-        }
-        
-    });
-    
-    $(".next-btn-quiz").click(function(){
-        if($(this).hasClass('disabled')) return;
-        if( step < (totalSteps-1) ){
-            step+=1;
-            $(".panel").addClass('hidden');
-            $(".panel:eq("+step+")").removeClass('hidden');
-            $(".stepNumber").html(step+1);
-            $(".progressBarInner").css('width', ((step+1)*10) + '%' );
-            
-            if($(".panel:eq("+step+") .options").find('.thebtn.selected').length == 0 ){
-                $(".next-btn-quiz").addClass('disabled');
-            }else{        
-                $(".next-btn-quiz").removeClass('disabled');
-            } 
-        }
-
-        var perc = calculatePoints();
-        console.log(perc,'perc');
-        var perc_txt = "";
-        if( perc < 30 ) {
-            perc_txt="Below 30%"
-        }
-        if( perc > 60 ) {
-            perc_txt="Above 60%"
-        }
-        if( perc >= 30 && perc <= 60 ) {
-            perc_txt="30-60%"
-        }
-
-        if(step==(totalSteps-1)) {
-            $(".quiz_main").addClass("hidden");
-            $(".result_main").removeClass("hidden");
-            $(".perc").html(perc+"%");
-            $(".per_text").html(perc_txt);
-        }
-
-
-
-    });
-
-
-$(".thebtn").click(function(e){
+                    Unix time: ${data.milliseconds_since_epoch}`;
+    $(".mypanel").html(text);
+  });
+  var selected = [];
+  var step = 0;
+  var totalSteps = $(".panelsWrapper").children(".panel").length;
+  $(".btn-startquiz").click(function () {
+    $(".panel-start-quiz").addClass("hidden");
+    $(".navig").removeClass("hidden");
+    $(".panelsWrapperOuter").removeClass("hidden");
+    $(".panel:eq(0)").removeClass("hidden");
+  });
+  $(".prev-btn-quiz").click(function () {
+    if (step == 0) {
+      $(".panel-start-quiz").removeClass("hidden");
+      $(".navig").addClass("hidden");
+      $(".panelsWrapperOuter").addClass("hidden");
+      $(".panel:eq(0)").addClass("hidden");
+    } else {
+      step -= 1;
+      $(".panel").addClass("hidden");
+      $(".panel:eq(" + step + ")").removeClass("hidden");
+      $(".stepNumber").html(step + 1);
+      $(".progressBarInner").css("width", (step + 1) * 10 + "%");
+      $(".next-btn-quiz").removeClass("disabled");
+    }
+  });
+  $(".next-btn-quiz").click(function () {
+    if ($(this).hasClass("disabled")) return;
+    if (step < totalSteps - 1) {
+      step += 1;
+      $(".panel").addClass("hidden");
+      $(".panel:eq(" + step + ")").removeClass("hidden");
+      $(".stepNumber").html(step + 1);
+      $(".progressBarInner").css("width", (step + 1) * 10 + "%");
+      if (
+        $(".panel:eq(" + step + ") .options").find(".thebtn.selected").length ==
+        0
+      ) {
+        $(".next-btn-quiz").addClass("disabled");
+      } else {
+        $(".next-btn-quiz").removeClass("disabled");
+      }
+    }
+    var perc = calculatePoints();
+    var perc_txt = "";
+    if (perc < 30) {
+      perc_txt = "Below 30%";
+      class_name = "below_60";
+      $(".below_60").removeClass("hidden");
+    }
+    if (perc > 60) {
+      perc_txt = "Above 60%";
+      $(".per_above-60").removeClass("hidden");
+    }
+    if (perc >= 30 && perc <= 60) {
+      perc_txt = "30-60%";
+      $(".per_30-60").removeClass("hidden");
+    }
+    if (step == totalSteps - 1) {
+      $(".res_image_glob ").addClass("hidden");
+      $(".quiz_main").addClass("hidden");
+      $(".result_main").removeClass("hidden");
+      $(".perc").html(perc + "%");
+      $(".per_text").html(perc_txt);
+    }
+  });
+  function toggleImage(clicked) {
+    if ($(clicked).find("img.selected").hasClass("hidden")) {
+      $(clicked).find("img.selected").removeClass("hidden");
+      $(clicked).find("img.not-selected").addClass("hidden");
+    } else {
+      $(clicked).find("img.selected").addClass("hidden");
+      $(clicked).find("img.not-selected").removeClass("hidden");
+    }
+  }
+  $(".thebtn").click(function (e) {
     e.preventDefault();
-    var stepClicked = $(this).closest('.panel').attr('step');
-    $(this).toggleClass('selected');
+    $optionsParent = $(this).closest(".options");
+    if (
+      !$(this).hasClass("behavior-none") &&
+      !$(this).hasClass("behavior-all")
+    ) {
+      $(this).toggleClass("selected");
+      $optionsParent.find(".thebtn.behavior-none").removeClass("selected");
+      toggleImage($(this))
+      $optionsParent.find(".thebtn.behavior-none img.selected").addClass("hidden");
+      $optionsParent.find(".thebtn.behavior-none img.not-selected").removeClass("hidden");
 
-    if($(this).hasClass('selected')){
-        $(this).find('img.selected').removeClass('hidden')
-        $(this).find('img.not-selected').addClass('hidden')
-    }else{
-        $(this).find('img.selected').addClass('hidden')
-        $(this).find('img.not-selected').removeClass('hidden')
+    }
+    if ($(this).hasClass("behavior-none")) {
+      $(this).toggleClass("selected");
+      $optionsParent.find(".thebtn").each(function (i, obj) {
+        if (!$(obj).hasClass("behavior-none")) {
+          $(obj).removeClass("selected");
+          $(obj).find("img.selected").addClass("hidden");
+          $(obj).find("img.not-selected").removeClass("hidden");
+        }
+      });
+
+      if ($(this).hasClass("selected")) {
+        $(this).find("img.selected").removeClass("hidden");
+        $(this).find("img.not-selected").addClass("hidden");
+      } else {
+        $(this).find("img.selected").addClass("hidden");
+        $(this).find("img.not-selected").removeClass("hidden");
+      }
     }
 
-    if($(this).closest('.options').find('.thebtn.selected').length == 0 ){
-        $(".next-btn-quiz").addClass('disabled');
-    }else{        
-        $(".next-btn-quiz").removeClass('disabled');
-    } 
 
 
-    var points = $(this).attr('points');
-})
-
-function calculatePoints(){
-    var cnt = 0;
-    $('.thebtn').each(function(i, obj) {
-        if($(obj).hasClass('selected')) {
-            var points = parseInt($(obj).attr('points'));
-            cnt += points;
+    if ($(this).hasClass("behavior-all")) {
+      $(this).toggleClass("selected");
+      $optionsParent.find(".thebtn").each(function (i, obj) {
+        if (!$(obj).hasClass("behavior-none")) {
+          $(obj).removeClass("selected");
+          $(obj).find("img.selected").addClass("hidden");
+          $(obj).find("img.not-selected").removeClass("hidden");
         }
-    });
+      });
 
-    var perc = (cnt * 100) / 127 ;
+      if ($(this).hasClass("selected")) {
+        $(this).find("img.selected").removeClass("hidden");
+        $(this).find("img.not-selected").addClass("hidden");
+      } else {
+        $(this).find("img.selected").addClass("hidden");
+        $(this).find("img.not-selected").removeClass("hidden");
+      }
+    }
     
-
-
+    if ($(this).closest(".options").find(".thebtn.selected").length == 0) {
+      $(".next-btn-quiz").addClass("disabled");
+    } else {
+      $(".next-btn-quiz").removeClass("disabled");
+    }
+  });
+  function calculatePoints() {
+    var cnt = 0;
+    $(".thebtn").each(function (i, obj) {
+      if ($(obj).hasClass("selected")) {
+        var points = parseInt($(obj).attr("points"));
+        cnt += points;
+      }
+    });
+    var perc = (cnt * 100) / 127;
     //console.log('perc' , perc.toFixed(0)+"%" , "cnt:" , cnt  )
-    return perc.toFixed(0)  ;
-}
-
+    return perc.toFixed(0);
+  }
 });

@@ -250,9 +250,7 @@
     {
     "answer": "أطبّق كل ما سبق",
     "point": "4",
-    "behavior": [
-    "none"
-    ],
+    "behavior": "all",
     "POSTID": 112
     }
     ]

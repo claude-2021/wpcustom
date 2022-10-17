@@ -11,7 +11,7 @@ define( 'PLUGIN_DIR', dirname(__DIR__).'/' );
 $string = file_get_contents( PLUGIN_DIR."/json/quiz".($ln=='ar' ? '_ar' :'').".json" );
 $json = json_decode($string, true);
 ?>
-<div class="QUIZ-proj-wrapper">
+<div class="QUIZ-proj-wrapper<?php echo($ln=='ar' ? ' lang_ar' :'')." PID:".$post->ID?>">
 <div class="quiz_main">
 <div class="panel-start-quiz flex-center-column">
     <div class="quiz_image">
@@ -34,7 +34,7 @@ $json = json_decode($string, true);
             <div class="instructions"><?php pll_e('Select at least one that applies to you to continue'); ?></div>
             <div class="options <?php echo trim($item['has_long_title']);?>">
                 <?php foreach($item['answers'] as $answer){?>
-               <label class="thebtn" points="<?php echo $answer['point']?>">
+               <label class="thebtn <?php echo ($answer['behavior'] ? "behavior-".$answer['behavior'] : "");?>" points="<?php echo $answer['point']?>">
                <div class="thebtnInner">
                    <?php if( strlen($item['has_long_title']) > 7 ){?>
                     <img class="not-selected" src="<?php echo plugin_dir_url(__DIR__)?>/img/checkbox-not-selected.png" />
@@ -72,7 +72,9 @@ $json = json_decode($string, true);
     </div>
     <div class="qrel">
         <div class="per_text">Above 60%</div>
-        <img src="<?php echo plugin_dir_url(__DIR__)?>img/Above-60-per.png" />
+        <img src="<?php echo plugin_dir_url(__DIR__)?>img/Above-60-per.png" class="res_image_glob per_above-60 hidden" />
+        <img src="<?php echo plugin_dir_url(__DIR__)?>img/30-60-per.png" class="res_image_glob per_30-60 hidden" />
+        <img src="<?php echo plugin_dir_url(__DIR__)?>img/below-60.png" class="res_image_glob per_below_60 hidden" />
         <div class="donateBtn"><?php pll_e('Donate Now'); ?></div>
     </div>
 </div>

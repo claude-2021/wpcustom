@@ -2,7 +2,7 @@
 
 /* Rectangle 4354 */
 .QUIZ-proj-wrapper {
-  font-family: "Work Sans";
+  font-family: 'Roboto', sans-serif;
 }
 
 .panel-start-quiz {
@@ -35,7 +35,7 @@
 }
 .quiz_title {
   font-size: 58px;
-  font-weight: 700;
+  font-weight: 800;
   color: #161616;
   margin-top: 48px;
 }
