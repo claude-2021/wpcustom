@@ -12,6 +12,8 @@ define( 'PLUGIN_DIR', dirname(__DIR__).'/' );
 $string = file_get_contents( PLUGIN_DIR."/json/quiz".($ln=='ar' ? '_ar' :'').".json" );
 $json = json_decode($string, true);
 ?>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <div class="QUIZ-proj-wrapper<?php echo($ln=='ar' ? ' lang_ar' :'')." PID:".$post->ID?>">
 <div class="quiz_main">
 <div class="panel-start-quiz flex-center-column">
@@ -72,7 +74,7 @@ $json = json_decode($string, true);
         </div>    
     </div>
     <div class="qrel">
-        <div class="per_text">Above 60%</div>
+        <!-- <div class="per_text">Above 60%</div> -->
         <img src="<?php echo plugin_dir_url(__DIR__)?>img/Above-60-per.png" class="res_image_glob per_above-60 hidden" />
         <img src="<?php echo plugin_dir_url(__DIR__)?>img/30-60-per.png" class="res_image_glob per_30-60 hidden" />
         <img src="<?php echo plugin_dir_url(__DIR__)?>img/below-60.png" class="res_image_glob per_below_60 hidden" />
