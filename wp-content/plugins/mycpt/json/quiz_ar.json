@@ -70,9 +70,7 @@
     {
     "answer": "لا شيء من هذه الخيارات",
     "point": "1",
-    "behavior": [
-    "none"
-    ],
+    "behavior": "none",
     "POSTID": 108
     },
     {
@@ -140,9 +138,7 @@
     {
     "answer": "لا شيء من هذه الخيارات",
     "point": "1",
-    "behavior": [
-    "none"
-    ],
+    "behavior": "none",
     "POSTID": 110
     },
     {
@@ -242,9 +238,7 @@
     {
     "answer": "لا شيء من هذه الخيارات لأكون صادقاً",
     "point": "1",
-    "behavior": [
-    "none"
-    ],
+    "behavior": "none",
     "POSTID": 112
     },
     {
@@ -412,9 +406,7 @@
     {
     "answer": "لا شيء من هذه الخيارات",
     "point": "1",
-    "behavior": [
-    "none"
-    ],
+    "behavior": "none",
     "POSTID": 116
     }
     ]

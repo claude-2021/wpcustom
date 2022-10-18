@@ -176,3 +176,18 @@ if(function_exists('pll_register_string')){
     });
     
 }
+
+
+function mts($key){
+    global $wpdb;
+    $arr = [];
+    $results = $wpdb->get_results( $wpdb->prepare( "SELECT meta_value FROM wp_postmeta WHERE meta_key=%d and meta_id=13", '_pll_strings_translations' ) );
+    $ser = $results[0]->meta_value;
+    $unser =unserialize($ser);
+    foreach ($unser as $k=>$v){
+        $arr[$v[0]]=$v[1];
+    }
+    //echo "<pre>";    print_r(json_encode($arr));    echo "</pre>";    
+}
+
+//mts("");
