@@ -145,7 +145,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 700px;
+  height: 740px;
 }
 
 .panelsWrapper .options {
@@ -298,6 +298,11 @@
 }
 
 
+/* ARABIC */
+
+.lang_ar .percentage-phrase{letter-spacing:inherit;display: flex;flex-direction: row-reverse;}
+
+
 
 /*  MOBILE */
 @media only screen and (max-width: 600px) {
@@ -319,6 +324,7 @@
 .progressBar{width:90%;margin:20px auto 18px auto;}
 .navig{position:inherit}
 .navig .btn-quiz{margin:15px auto}
-.qrel img{width:100%;margin:20px auto}
-.result_inner{width9:0%}
+.qrel {text-align: center;}
+.qrel img{width:90%;margin:20px auto}
+.result_inner{width:90%}
 }

@@ -113,11 +113,11 @@ jQuery(document).ready(function ($) {
     if ($(this).hasClass("behavior-none")) {
       //  $(this).toggleClass("selected");
       $optionsParent.find(".thebtn").each(function (i, obj) {
-        if (!$(obj).hasClass("behavior-none")) {
+      //  if (!$(obj).hasClass("behavior-none")) {   }
           $(obj).removeClass("selected");
           $(obj).find("img.selected").addClass("hidden");
           $(obj).find("img.not-selected").removeClass("hidden");
-        }
+     
       });
       if (!$(this).hasClass("selected")) {
         $(this).addClass("selected");
