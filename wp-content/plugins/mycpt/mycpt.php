@@ -121,9 +121,10 @@ add_action('rest_api_init', function () {
 	$args = array(
 			'post_type' => 'quiz',
 			'lang' => $lang,
-			'order_by'=>'ID',
-			'order'=>'ASC',
-			'posts_per_page'=> -1
+			'order_by' => 'ID',
+			'order' => 'ASC',
+			'posts_per_page' => -1,
+            'post_status' => 'publish'
     );
     $posts = get_posts($args);
     if (empty($posts)) {
