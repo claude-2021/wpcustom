@@ -1,0 +1,6 @@
+{
+  "require": {
+    "greenpeace/planet4-master-theme": "^1.239",
+    "greenpeace/planet4-child-theme-mena": "^0.0.6"
+  }
+}

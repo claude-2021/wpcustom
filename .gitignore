@@ -12,4 +12,7 @@ wp-content/plugins/polylang/**
 wp-content/plugins/admin-columns-for-acf-fields
 wp-content/plugins/advanced-custom-fields
 wp-content/plugins/codepress-admin-columns
+wp-content/plugins/timber-library
+wp-content/themes/timber-starter-theme/**
+vendor/**
 /wp-config.php
