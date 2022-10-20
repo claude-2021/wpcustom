@@ -47,7 +47,8 @@ jQuery(document).ready(function ($) {
       }
     }
     var perc = calculatePoints();
-    var perc_txt = "";
+    
+    
     if (step == totalSteps - 1) {
       $(".res_image_glob ").addClass("hidden");
       $(".quiz_main").addClass("hidden");

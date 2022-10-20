@@ -78,7 +78,6 @@ $json = json_decode($string, true);
         </div>    
     </div>
     <div class="qrel">
-        <!-- <div class="per_text">Above 60%</div> -->
         <img src="<?php echo plugin_dir_url(__DIR__)?>img/Above-60-per.png" class="res_image_glob per_above-60 hidden" />
         <img src="<?php echo plugin_dir_url(__DIR__)?>img/30-60-per.png" class="res_image_glob per_30-60 hidden" />
         <img src="<?php echo plugin_dir_url(__DIR__)?>img/below-60.png" class="res_image_glob per_below_60 hidden" />
